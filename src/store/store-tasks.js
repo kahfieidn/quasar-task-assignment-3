@@ -23,14 +23,19 @@ const state = {
 
 const mutations = {
   updateTask(state, payload){
-    console.log('payload from mutation: ', payload)
     Object.assign(state.task[payload.id], payload.updates)
+  },
+  deleteTask(state, id){
+    delete state.task[id]
   }
 };
 
 const actions = {
   updateTask({commit}, payload){
     commit('updateTask', payload)
+  },
+  deleteTask({commit}, id){
+    commit('deleteTask', id)
   }
 };
 
