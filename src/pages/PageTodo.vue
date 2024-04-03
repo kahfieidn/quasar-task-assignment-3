@@ -3,7 +3,12 @@
     <q-list separator bordered>
 
       <task v-for="(task, key) in tasks" :key="task.id" :task="task" :id="key"></task>
+
     </q-list>
+
+    <q-btn round color="primary" size="24px" icon="add" />
+    <br>
+
   </q-page>
 </template>
 
