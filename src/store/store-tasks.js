@@ -1,3 +1,5 @@
+import { uid } from "quasar";
+
 const state = {
   task: {
     ID1: {
@@ -22,21 +24,33 @@ const state = {
 };
 
 const mutations = {
-  updateTask(state, payload){
-    Object.assign(state.task[payload.id], payload.updates)
+  updateTask(state, payload) {
+    Object.assign(state.task[payload.id], payload.updates);
   },
-  deleteTask(state, id){
-    delete state.task[id]
-  }
+  deleteTask(state, id) {
+    delete state.task[id];
+  },
+  addTask(state, payload) {
+    payload.task.completed = false
+    state.task[payload.id] = (payload.id, payload.task.completed, payload.task)
+  },
 };
 
 const actions = {
-  updateTask({commit}, payload){
-    commit('updateTask', payload)
+  updateTask({ commit }, payload) {
+    commit("updateTask", payload);
   },
-  deleteTask({commit}, id){
-    commit('deleteTask', id)
-  }
+  deleteTask({ commit }, id) {
+    commit("deleteTask", id);
+  },
+  addTask({commit}, task) {
+    let taskId = uid();
+    let payload = {
+      id: taskId,
+      task: task,
+    };
+    commit("addTask", payload);
+  },
 };
 
 const getters = {

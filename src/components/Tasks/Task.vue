@@ -44,7 +44,7 @@ export default {
     promptToDelete(id){
       this.$q.dialog({
         title: 'Confirm',
-        message: 'Would you like to turn on the wifi?',
+        message: 'Ingin menghapus data ini?',
         cancel: true,
         persistent: true
       }).onOk(() => {
