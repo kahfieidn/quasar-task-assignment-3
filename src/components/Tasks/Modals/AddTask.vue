@@ -9,12 +9,12 @@
         <q-form @submit="submitForm" class="q-gutter-md">
             <q-card-section>
                 <div class="row q-mb-sm">
-                    <q-input class="col" outlined v-model="taskToSubmit.name" label="Task Name"
+                    <q-input clearable class="col" outlined v-model="taskToSubmit.name" label="Task Name"
                         :rules="[val => !!val || 'Field is required']" ref="name" />
                 </div>
                 <div class="row q-mb-sm">
-                    <q-input label="Due Date" outlined v-model="taskToSubmit.dueDate"
-                        :rules="[val => !!val || 'Field is required']" ref="dueDate">
+                    <q-input clearable label="Due Date" outlined v-model="taskToSubmit.dueDate"
+                         ref="dueDate">
                         <template v-slot:append>
                             <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -28,9 +28,9 @@
                         </template>
                     </q-input>
                 </div>
-                <div class="row q-mb-sm">
-                    <q-input label="Due Time" outlined v-model="taskToSubmit.dueTime" mask="time"
-                        :rules="[val => !!val || 'Field is required']" ref="dueTime">
+                <div v-if="taskToSubmit.dueDate" class="row q-mb-sm">
+                    <q-input clearable label="Due Time" outlined v-model="taskToSubmit.dueTime" mask="time"
+                         ref="dueTime">
                         <template v-slot:append>
                             <q-icon name="access_time" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -71,7 +71,7 @@ export default {
     methods: {
         ...mapActions('tasks', ['addTask']),
         submitForm() {
-            if(!this.$refs.name.hasError && !this.$refs.dueTime.hasError && !this.$refs.dueDate.hasError){
+            if(!this.$refs.name.hasError){
                 this.submitTask()
             }
         },
