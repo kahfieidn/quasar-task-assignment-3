@@ -1,7 +1,7 @@
 <template>
     <q-card>
 
-        <modal-header>Add Task</modal-header>
+        <modal-header>Edit Task</modal-header>
 
         <q-form @submit="submitForm" class="q-gutter-md">
             <q-card-section>
@@ -28,22 +28,26 @@ export default {
     data() {
         return {
             taskToSubmit: {
-                name: '',
-                completed: '',
-                dueDate: '',
-                dueTime: '',
+                
             }
         }
     },
+    mounted() {
+        this.taskToSubmit = Object.assign({}, this.task)
+    },
+    props:['task', 'id'],
     methods: {
-        ...mapActions('tasks', ['addTask']),
+        ...mapActions('tasks', ['updateTask']),
         submitForm() {
             if(!this.$refs.modalTaskName.name.hasError){
                 this.submitTask()
             }
         },
         submitTask() {
-            this.addTask(this.taskToSubmit)
+            this.updateTask({
+                id: this.id,
+                updates: this.taskToSubmit
+            })
             this.$emit('close')
         }
     },
