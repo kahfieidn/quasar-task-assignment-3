@@ -1,7 +1,7 @@
 import { uid } from "quasar";
 
 const state = {
-  task: {
+  tasks: {
     ID1: {
       name: "Go to ship",
       completed: false,
@@ -25,14 +25,14 @@ const state = {
 
 const mutations = {
   updateTask(state, payload) {
-    Object.assign(state.task[payload.id], payload.updates);
+    Object.assign(state.tasks[payload.id], payload.updates);
   },
   deleteTask(state, id) {
-    delete state.task[id];
+    delete state.tasks[id];
   },
   addTask(state, payload) {
-    payload.task.completed = false
-    state.task[payload.id] = (payload.id, payload.task.completed, payload.task)
+    payload.tasks.completed = false
+    state.tasks[payload.id] = (payload.id, payload.tasks.completed, payload.tasks)
   },
 };
 
@@ -43,19 +43,36 @@ const actions = {
   deleteTask({ commit }, id) {
     commit("deleteTask", id);
   },
-  addTask({commit}, task) {
+  addTask({commit}, tasks) {
     let taskId = uid();
     let payload = {
       id: taskId,
-      task: task,
+      tasks: tasks,
     };
     commit("addTask", payload);
   },
 };
 
 const getters = {
-  tasks: (state) => {
-    return state.task;
+  tasksTodo: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach(function(key){
+      let task = state.tasks[key]
+      if(!task.completed){
+        tasks[key] = task
+      }
+    })
+    return tasks;
+  },
+  tasksCompleted: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach(function(key){
+      let task = state.tasks[key]
+      if(task.completed){
+        tasks[key] = task
+      }
+    })
+    return tasks;
   },
 };
 

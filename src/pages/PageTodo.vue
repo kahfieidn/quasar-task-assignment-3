@@ -1,10 +1,9 @@
 <template>
   <q-page class="q-pa-md">
-    <q-list separator bordered>
 
-      <task v-for="(task, key) in tasks" :key="task.id" :task="task" :id="key"></task>
+    <tasks-todo :tasksTodo="tasksTodo"></tasks-todo>
 
-    </q-list>
+    <tasks-completed :tasksCompleted="tasksCompleted"></tasks-completed>
 
     <div class="absolute-bottom text-center q-mb-lg">
       <q-btn @click="showAddTask = true" round color="primary" size="24px" icon="add" />
@@ -23,21 +22,23 @@
 import { defineComponent } from 'vue'
 import { mapGetters } from 'vuex'
 import Task from 'components/Tasks/Task.vue'
+import TasksTodo from 'components/Tasks/TaskTodo.vue'
+import TasksCompleted from 'components/Tasks/TaskCompleted.vue'
 import AddTaskModal from 'components/Tasks/Modals/AddTask.vue'
 
 export default defineComponent({
 
   name: 'PageTodo',
-  data(){
+  data() {
     return {
-      showAddTask:false,
+      showAddTask: false,
     }
   },
   computed: {
-    ...mapGetters('tasks', ['tasks'])
+    ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted'])
   },
   components: {
-    Task, AddTaskModal
+    Task, AddTaskModal, TasksTodo, TasksCompleted
   }
 
 })
