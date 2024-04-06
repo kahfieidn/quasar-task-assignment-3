@@ -1,9 +1,9 @@
 <template>
   <q-page class="q-pa-md">
 
-    <tasks-todo :tasksTodo="tasksTodo"></tasks-todo>
+    <tasks-todo v-if="Object.keys(tasksTodo).length"  :tasksTodo="tasksTodo"></tasks-todo>
 
-    <tasks-completed :tasksCompleted="tasksCompleted"></tasks-completed>
+    <tasks-completed  v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted"></tasks-completed>
 
     <div class="absolute-bottom text-center q-mb-lg">
       <q-btn @click="showAddTask = true" round color="primary" size="24px" icon="add" />
